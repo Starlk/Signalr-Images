@@ -27,7 +27,6 @@ const form: InitialForm = {
   photo: "",
 };
 const Conection = SignalRConnection.connect();
-
 export default defineComponent({
   data() {
     return {
@@ -49,10 +48,9 @@ export default defineComponent({
      
     },
   },
-     created(){
-          Conection.start().then(()=>{
-          console.log("Start connection");
-        });
+     async created(){
+         await Conection.start()
+         console.log("start connection")
     }
 });
 </script>
