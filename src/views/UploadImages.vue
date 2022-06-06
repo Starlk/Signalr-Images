@@ -27,7 +27,6 @@ const form: InitialForm = {
   photo: "",
 };
 const Conection = SignalRConnection.connect();
-Conection.start().then(()=>console.log("conexion start"))
 export default defineComponent({
   data() {
     return {
@@ -44,10 +43,14 @@ export default defineComponent({
     },
     async HandleSubmit(e: Event) {
       e.preventDefault();
-      const res = await SendForm(UploadImageAPI, this.form);
-      await Conection.invoke("SendMessage", res).catch((e) => console.log(e));
+      const res = await (await SendForm(UploadImageAPI, this.form)).data;
+      console.log(res)
+      Conection.invoke("SendMessage", res).catch((e) => console.log(e));
      
     },
   },
+  created(){
+    Conection.start().then(()=>console.log("conexion start"))
+  }
 });
 </script>

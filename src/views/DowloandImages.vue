@@ -17,6 +17,7 @@ export default defineComponent({
   setup(){
       const photo = ref("")
       connection.on("ReceiveMessage", (path) => {
+        console.log(`path ${path}`)
       photo.value = path;
     });
     return{
